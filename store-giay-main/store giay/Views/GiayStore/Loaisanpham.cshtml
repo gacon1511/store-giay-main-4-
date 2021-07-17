@@ -1,0 +1,10 @@
+﻿@model IEnumerable<store_giay.Models.Loaisanpham>
+<p class="lead">LOẠI SẢN PHẨM</p>
+<div class="list-group">
+    @foreach (var item in Model)
+    {
+        <a href="@Url.Action("SPTheoloai", "GiayStore", new { id = item.idLoaisanpham})" class="list-group-item">
+            @item.tenLoaisanpham
+        </a>
+    }
+</div>

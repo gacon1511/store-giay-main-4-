@@ -1,0 +1,83 @@
+﻿@model store_giay.Models.Sanpham
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Sanpham</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tenSanpham)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tenSanpham)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.motaSanpham)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.motaSanpham)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idNhanhieu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idNhanhieu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idLoaisanpham)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idLoaisanpham)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hinhSanpham)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.hinhSanpham)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.giabanSanpham)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.giabanSanpham)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Soluongton)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Soluongton)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ngaycapnhat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ngaycapnhat)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idSanpham }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

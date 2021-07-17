@@ -1,0 +1,34 @@
+﻿@model IEnumerable<store_giay.Models.Nhanhieu>
+
+@{
+    ViewBag.Title = "NhanHieu";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>NhanHieu</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.tenNhanhieu)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.tenNhanhieu)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idNhanhieu }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idNhanhieu }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idNhanhieu })
+        </td>
+    </tr>
+}
+
+</table>
