@@ -126,7 +126,6 @@
     <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NguoiDungController.cs" />
-    <Compile Include="Controllers\SanphamController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -284,13 +283,13 @@
     <Content Include="Views\Admin\Login.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Sanpham\Sanpham.cshtml" />
-    <Content Include="Views\Sanpham\Create.cshtml" />
-    <Content Include="Views\Sanpham\Delete.cshtml" />
-    <Content Include="Views\Sanpham\Details.cshtml" />
-    <Content Include="Views\Sanpham\Edit.cshtml" />
-    <Content Include="Views\Sanpham\LoaiGiay.cshtml" />
-    <Content Include="Views\Sanpham\NhanHieu.cshtml" />
+    <Content Include="Views\Admin\Sanpham.cshtml" />
+    <Content Include="Views\Admin\LoaiGiay.cshtml" />
+    <Content Include="Views\Admin\NhanHieu.cshtml" />
+    <Content Include="Views\Admin\Create.cshtml" />
+    <Content Include="Views\Admin\Details.cshtml" />
+    <Content Include="Views\Admin\Delete.cshtml" />
+    <Content Include="Views\Admin\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
