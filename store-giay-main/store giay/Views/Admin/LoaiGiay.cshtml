@@ -8,7 +8,7 @@
 <h2>LoaiGiay</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "CreateLSP")
 </p>
 <table class="table">
     <tr>
@@ -24,9 +24,9 @@
             @Html.DisplayFor(modelItem => item.tenLoaisanpham)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.idLoaisanpham }) |
-            @Html.ActionLink("Details", "Details", new { id=item.idLoaisanpham }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.idLoaisanpham })
+            @Html.ActionLink("Edit", "EditLSP", new { id=item.idLoaisanpham }) |
+            @Html.ActionLink("Details", "DetailsLSP", new { id=item.idLoaisanpham }) |
+            @Html.ActionLink("Delete", "DeleteLSP", new { id=item.idLoaisanpham })
         </td>
     </tr>
 }

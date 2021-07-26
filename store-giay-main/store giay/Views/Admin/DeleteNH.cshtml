@@ -1,0 +1,34 @@
+﻿@model store_giay.Models.Nhanhieu
+
+@{
+    ViewBag.Title = "DeleteNH";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>DeleteNH</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <span style="color: red">@TempData["ThongBao"]</span>
+    <h4>Nhanhieu</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tenNhanhieu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tenNhanhieu)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "NhanHieu")
+        </div>
+    }
+</div>

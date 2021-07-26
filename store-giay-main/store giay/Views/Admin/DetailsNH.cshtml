@@ -1,0 +1,27 @@
+﻿@model store_giay.Models.Nhanhieu
+
+@{
+    ViewBag.Title = "DetailsNH";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>DetailsNH</h2>
+
+<div>
+    <h4>Nhanhieu</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tenNhanhieu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tenNhanhieu)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditNH", new { id = Model.idNhanhieu }) |
+    @Html.ActionLink("Back to List", "NhanHieu")
+</p>

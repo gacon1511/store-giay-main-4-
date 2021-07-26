@@ -8,7 +8,7 @@
 <h2>NhanHieu</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "CreateNH")
 </p>
 <table class="table">
     <tr>
@@ -24,9 +24,9 @@
             @Html.DisplayFor(modelItem => item.tenNhanhieu)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.idNhanhieu }) |
-            @Html.ActionLink("Details", "Details", new { id=item.idNhanhieu }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.idNhanhieu })
+            @Html.ActionLink("Edit", "EditNH", new { id=item.idNhanhieu }) |
+            @Html.ActionLink("Details", "DetailsNH", new { id=item.idNhanhieu }) |
+            @Html.ActionLink("Delete", "DeleteNH", new { id=item.idNhanhieu })
         </td>
     </tr>
 }

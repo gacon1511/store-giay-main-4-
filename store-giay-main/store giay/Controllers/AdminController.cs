@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
+
 
 namespace store_giay.Controllers
 {
@@ -14,7 +16,10 @@ namespace store_giay.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            return View();
+            if (Session["TaiKhoanAdmin"] == null)
+                return RedirectToAction("Login", "Admin");
+            else
+                return View();
         }
         [HttpGet]
         public ActionResult Login()
@@ -47,13 +52,14 @@ namespace store_giay.Controllers
             }
             return View();
         }
-
+        //San Pham
         public ActionResult Sanpham()
         {
             if (Session["TaiKhoanAdmin"] == null)
                 return RedirectToAction("Login", "Admin");
             else
-                return View(db.Sanphams.ToList());
+            
+                return View(db.Sanphams.OrderByDescending(n => n.idSanpham).ToList());
         }
         [HttpGet]
         public ActionResult Create()
@@ -64,15 +70,44 @@ namespace store_giay.Controllers
                 return View();
         }
         [HttpPost]
-        public ActionResult Create(Sanpham sanpham)
+        [ValidateInput(false)]
+        public ActionResult Create(Sanpham sanpham, HttpPostedFileBase fileUpload)
         {
             if (Session["TaiKhoanAdmin"] == null)
                 return RedirectToAction("Login", "Admin");
             else
             {
-                db.Sanphams.InsertOnSubmit(sanpham);
-                db.SubmitChanges();
-                return View("Index", "Sanpham");
+                if(fileUpload == null)
+                {
+                    ViewBag.Thongbao = "Vui Lòng chọn ảnh";
+                    return View();
+
+                }
+                else
+                {
+                    if (ModelState.IsValid)
+                    {
+                        //luu ten file
+                        var fileName = Path.GetFileName(fileUpload.FileName);
+                        //luu duong dan cua file
+                        var path = Path.Combine(Server.MapPath("~/Hinhsanpham"), fileName);
+                        //kiem tra hinh anh ton tai chua
+                        if (System.IO.File.Exists(path))
+                        {
+                            ViewBag.Thongbao = "Hình ảnh đã tồn tại";
+                        }
+                        else
+                        {
+                            //Luu hinh anh vao duong dan
+                            fileUpload.SaveAs(path);
+                        }
+                        sanpham.hinhSanpham = fileName;
+                        db.Sanphams.InsertOnSubmit(sanpham);
+                        db.SubmitChanges();
+                        //return View("Sanpham", "Admin");
+                    }
+                    return RedirectToAction("Sanpham", "Admin");
+                }
             }
         }
 
@@ -102,7 +137,7 @@ namespace store_giay.Controllers
             Sanpham sanpham = db.Sanphams.Where(n => n.idSanpham == id).SingleOrDefault();
             db.Sanphams.DeleteOnSubmit(sanpham);
             db.SubmitChanges();
-            return RedirectToAction("Index", "Sanpham");
+            return RedirectToAction("Sanpham", "Admin");
 
         }
         [HttpGet]
@@ -117,15 +152,16 @@ namespace store_giay.Controllers
             }
         }
         [HttpPost, ActionName("Edit")]
+        [ValidateInput(false)]
         public ActionResult EditSanPham(int id)
         {
-            Sanpham sanpham = db.Sanphams.Where(n => n.idSanpham == id).SingleOrDefault();
+            Sanpham sanpham = db.Sanphams.SingleOrDefault(n => n.idSanpham == id);
             UpdateModel(sanpham);
             db.SubmitChanges();
-            return RedirectToAction("Index", "Sanpham");
+            return RedirectToAction("Sanpham", "Admin");
 
         }
-
+        // Loai San Pham
         public ActionResult LoaiGiay()
         {
             if (Session["TaiKhoanAdmin"] == null)
@@ -133,7 +169,78 @@ namespace store_giay.Controllers
             else
                 return View(db.Loaisanphams.ToList());
         }
-       
+        [HttpGet]
+        public ActionResult CreateLSP()
+        {
+            if (Session["TaiKhoanAdmin"] == null)
+                return RedirectToAction("Login", "Admin");
+            else
+                return View();
+        }
+        [HttpPost]
+        public ActionResult CreateLSP(Loaisanpham loaisanpham)
+        {
+            if (Session["TaiKhoanAdmin"] == null)
+                return RedirectToAction("Login", "Admin");
+            else
+            {
+                db.Loaisanphams.InsertOnSubmit(loaisanpham);
+                db.SubmitChanges();
+                return RedirectToAction("LoaiGiay", "Admin");
+            }
+        }
+
+        public ActionResult DetailsLSP(int id)
+        {
+            if (Session["TaiKhoanAdmin"] == null)
+                return RedirectToAction("Login", "Admin");
+            else
+            {
+                var loaisanpham = from lsp in db.Loaisanphams where lsp.idLoaisanpham  == id select lsp;
+                return View(loaisanpham.SingleOrDefault());
+            }
+        }
+        public ActionResult DeleteLSP(int id)
+        {
+            if (Session["TaiKhoanAdmin"] == null)
+                return RedirectToAction("Login", "Admin");
+            else
+            {
+                var loaisanpham = from lsp in db.Loaisanphams where lsp.idLoaisanpham == id select lsp;
+                return View(loaisanpham.SingleOrDefault());
+            }
+        }
+        [HttpPost, ActionName("DeleteLSP")]
+        public ActionResult DeleteLSanPham(int id)
+        {
+            Loaisanpham loaisanpham = db.Loaisanphams.Where(n => n.idLoaisanpham == id).SingleOrDefault();
+            db.Loaisanphams.DeleteOnSubmit(loaisanpham);
+            db.SubmitChanges();
+            return RedirectToAction("LoaiGiay", "Admin");
+
+        }
+        [HttpGet]
+        public ActionResult EditLSP(int id)
+        {
+            if (Session["TaiKhoanAdmin"] == null)
+                return RedirectToAction("Login", "Admin");
+            else
+            {
+                var loaisanpham = from lsp in db.Loaisanphams where lsp.idLoaisanpham == id select lsp;
+                return View(loaisanpham.SingleOrDefault());
+            }
+        }
+        [HttpPost, ActionName("EditLSP")]
+        public ActionResult EditLSanPham(int id)
+        {
+            Loaisanpham loaisanpham = db.Loaisanphams.Where(n => n.idLoaisanpham == id).SingleOrDefault();
+            UpdateModel(loaisanpham);
+            db.SubmitChanges();
+            return RedirectToAction("LoaiGiay", "Admin");
+
+        }
+
+        //Nhan Hieu
         public ActionResult NhanHieu()
         {
             if (Session["TaiKhoanAdmin"] == null)
@@ -142,6 +249,88 @@ namespace store_giay.Controllers
                 return View(db.Nhanhieus.ToList());
         }
 
+        [HttpGet]
+        public ActionResult CreateNH()
+        {
+            if (Session["TaiKhoanAdmin"] == null)
+                return RedirectToAction("Login", "Admin");
+            else
+                return View();
+        }
+        [HttpPost]
+        public ActionResult CreateNH(Nhanhieu nhanhieu)
+        {
+            if (Session["TaiKhoanAdmin"] == null)
+                return RedirectToAction("Login", "Admin");
+            else
+            {
+                db.Nhanhieus.InsertOnSubmit(nhanhieu);
+                db.SubmitChanges();
+                return RedirectToAction("NhanHieu", "Admin");
+            }
+        }
+
+        public ActionResult DetailsNH(int id)
+        {
+            if (Session["TaiKhoanAdmin"] == null)
+                return RedirectToAction("Login", "Admin");
+            else
+            {
+                var nhanhieu = from nh in db.Nhanhieus where nh.idNhanhieu == id select nh;
+                return View(nhanhieu.SingleOrDefault());
+            }
+        }
+        public ActionResult DeleteNH(int id)
+        {
+            if (Session["TaiKhoanAdmin"] == null)
+                return RedirectToAction("Login", "Admin");
+            else
+            {
+                var nhanhieu = from nh in db.Nhanhieus where nh.idNhanhieu == id select nh;
+                return View(nhanhieu.SingleOrDefault());
+            }
+        }
+        [HttpPost, ActionName("DeleteNH")]
+        public ActionResult DeleteNH1(int id)
+        {
+            try
+            {
+                Nhanhieu nhanhieu = db.Nhanhieus.Where(n => n.idNhanhieu == id).SingleOrDefault();
+                db.Nhanhieus.DeleteOnSubmit(nhanhieu);
+                db.SubmitChanges();
+                return RedirectToAction("NhanHieu", "Admin");
+            }
+            catch (Exception ex)
+            {
+                TempData["ThongBao"] = ex.Message;
+                return RedirectToAction("DeleteNH", "Admin", new {id = id });
+            }
+           /* Nhanhieu nhanhieu = db.Nhanhieus.Where(n => n.idNhanhieu == id).SingleOrDefault();
+            db.Nhanhieus.DeleteOnSubmit(nhanhieu);
+            db.SubmitChanges();
+            return RedirectToAction("NhanHieu", "Admin");*/
+
+        }
+        [HttpGet]
+        public ActionResult EditNH(int id)
+        {
+            if (Session["TaiKhoanAdmin"] == null)
+                return RedirectToAction("Login", "Admin");
+            else
+            {
+                var nhanhieu = from nh in db.Nhanhieus where nh.idNhanhieu == id select nh;
+                return View(nhanhieu.SingleOrDefault());
+            }
+        }
+        [HttpPost, ActionName("EditNH")]
+        public ActionResult EditNH1(int id)
+        {
+            Nhanhieu nhanhieu = db.Nhanhieus.Where(n => n.idNhanhieu == id).SingleOrDefault();
+            UpdateModel(nhanhieu);
+            db.SubmitChanges();
+            return RedirectToAction("NhanHieu", "Admin");
+
+        }
 
     }
 }

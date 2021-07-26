@@ -1,76 +1,101 @@
 ﻿@model IEnumerable<store_giay.Models.Sanpham>
+@using store_giay.Models;
+
+
 
 @{
     ViewBag.Title = "Sanpham";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Sanpham</h2>
+@helper Truncate(string input, int length)
+{
+    if (input.Length < length)
+    {
+        @input
+    }
+    else
+    {
+        @input.Substring(0, length)<text>...</text>
+    }
+}
 
 <p>
     @Html.ActionLink("Thêm", "Create")
 </p>
 <table border="1" class="table">
     <tr style="background-color:greenyellow">
-        <th>
-            @Html.DisplayNameFor(model => model.tenSanpham)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.motaSanpham)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.idNhanhieu)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.idLoaisanpham)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.hinhSanpham)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.giabanSanpham)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Soluongton)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ngaycapnhat)
-        </th>
-        <th></th>
+        @*@<th>
+                @Html.DisplayNameFor(model => model.tenSanpham)
+            </th>
+            <th style="width:400px">
+                @Html.DisplayNameFor(model => model.motaSanpham)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.idNhanhieu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.idLoaisanpham)
+            </th>
+            <th>
+
+                @Html.DisplayNameFor(model => model.hinhSanpham)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.giabanSanpham)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Soluongton)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ngaycapnhat)
+            </th>*@
+        <th style="width:200px">tenSanpham</th>
+        <th style="width:200px">motaSanpham</th>
+        <th style="width:120px">idNhanhieu</th>
+        <th style="width:120px">idloaisanpham</th>
+        <th style="width:120px">hinhSanpham</th>
+        <th style="width:120px">giabanSanpham</th>
+        <th style="width:120px">Soluongton</th>
+        <th style="width:100px">ngaycapnhat</th>
+        <th style="width:400px"></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.tenSanpham)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.motaSanpham)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.idNhanhieu)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.idLoaisanpham)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.hinhSanpham)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.giabanSanpham)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Soluongton)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ngaycapnhat)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.idSanpham }) |
-            @Html.ActionLink("Details", "Details", new { id=item.idSanpham }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.idSanpham })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.tenSanpham)
+            </td>
+            <td>
+                @Truncate(item.motaSanpham, 100)
+               @* @Html.DisplayFor(modelItem => item.motaSanpham)*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.idNhanhieu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.idLoaisanpham)
+            </td>
+            <td>
+                <img width="100px" src="@Url.Content("~/Hinhsanpham/"+ item.hinhSanpham)" />
+                @** @Html.DisplayFor(modelItem => item.hinhSanpham)*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.giabanSanpham)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Soluongton)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ngaycapnhat)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.idSanpham }) |
+                @Html.ActionLink("Details", "Details", new { id = item.idSanpham }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.idSanpham })
+            </td>
+        </tr>
+    }
 
 </table>

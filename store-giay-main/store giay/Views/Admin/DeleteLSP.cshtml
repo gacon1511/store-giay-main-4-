@@ -1,0 +1,33 @@
+﻿@model store_giay.Models.Loaisanpham
+
+@{
+    ViewBag.Title = "DeleteLSP";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>DeleteLSP</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Loaisanpham</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tenLoaisanpham)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tenLoaisanpham)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Trở về trang giày", "LoaiGiay")
+        </div>
+    }
+</div>

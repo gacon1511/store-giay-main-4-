@@ -1,0 +1,27 @@
+﻿@model store_giay.Models.Loaisanpham
+
+@{
+    ViewBag.Title = "DetailsLSP";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>DetailsLSP</h2>
+
+<div>
+    <h4>Loaisanpham</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tenLoaisanpham)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tenLoaisanpham)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditLSP", new { id = Model.idLoaisanpham }) |
+    @Html.ActionLink("trở về trang giày", "LoaiGiay")
+</p>

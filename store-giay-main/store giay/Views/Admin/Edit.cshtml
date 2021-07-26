@@ -26,10 +26,11 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.motaSanpham, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.motaSanpham, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.motaSanpham, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.motaSanpham, "", new { @class = "text-danger" })
+                <textarea name="motaSanpham">@Model.motaSanpham</textarea>
+                @* @Html.EditorFor(model => model.motaSanpham, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.motaSanpham, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
@@ -52,8 +53,12 @@
         <div class="form-group">
             @Html.LabelFor(model => model.hinhSanpham, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.hinhSanpham, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.hinhSanpham, "", new { @class = "text-danger" })
+                <input type="file" name="fileupload" />
+                <img src="@Url.Content("~/Hinhsanpham/"+ Model.hinhSanpham)" width="100px"/>
+                @*thong bao trung*@
+                @ViewBag.Thongbao
+              @*  @Html.EditorFor(model => model.hinhSanpham, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.hinhSanpham, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
@@ -83,12 +88,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="sửa" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Sanpham")
 </div>

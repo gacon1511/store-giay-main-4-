@@ -5,9 +5,10 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Create</h2>
+<h2>Thêm</h2>
+@*Thêm thuộc tính cho form để upload ảnh*@
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Admin", FormMethod.Post, new { @enctype="multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
     
@@ -26,8 +27,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.motaSanpham, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.motaSanpham, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.motaSanpham, "", new { @class = "text-danger" })
+                <textarea name="motaSanpham">Mô tả thông tin sản phẩm</textarea>
+              @*  @Html.EditorFor(model => model.motaSanpham, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.motaSanpham, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
@@ -50,8 +52,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.hinhSanpham, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.hinhSanpham, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.hinhSanpham, "", new { @class = "text-danger" })
+                <input type="file" name="fileupload"/>
+                @*thong bao trung*@
+                @ViewBag.Thongbao
+             @*@   @Html.EditorFor(model => model.hinhSanpham, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.hinhSanpham, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
@@ -74,8 +79,10 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ngaycapnhat, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ngaycapnhat, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ngaycapnhat, "", new { @class = "text-danger" })
+                <input type="date" name="ngaycapnhat" />
+                @Html.ValidationMessageFor(model => model.ngaycapnhat)
+            @* @Html.EditorFor(model => model.ngaycapnhat, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ngaycapnhat, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
@@ -88,5 +95,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Sanpham")
 </div>
